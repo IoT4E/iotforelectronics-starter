@@ -12,8 +12,15 @@
     <script src="/jquery/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="/analytics/bluemix-analytics.js"></script>
-    <script type="text/javascript"> digitalData = {page: {pageInfo: {pageID: "IOTELECTRONICS"}}} </script>
-  
+    <script type="text/javascript"> digitalData = {
+          page: {
+          pageInfo: {
+            pageID: "IOTELECTRONICS"
+          }
+        }
+      } 
+     </script>
+     
     <script type="text/javascript">
       //check github latest released version and compare with existed
       $(document).ready(function () {
@@ -21,18 +28,24 @@
       });
     
       function GetLatestReleaseInfo() {
+  
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "/version", false ); // false for synchronous request
+        xmlHttp.send( null );
+        var currentBuildId = xmlHttp.responseText
+  
         $.ajaxSetup({
           headers : {
-            'Authorization' : 'Basic Y2thb0B1cy5pYm0uY29tOlE3RW5yc09kaA==',
+            'Authorization' : 'Basic aWJtQGNrYW8uaW5mbzpUZXN0MTIz',
             'Content-Type' : 'application/json'
           }
         });
         $.getJSON("https://api.github.com/repos/IoT4E/iotforelectronics-starter/releases/latest").done(function (release) {
           var asset = release.assets[0];
           var downloadCount = 0;
-          var currentBuildId = "v0.0.0";
+          //var currentBuildId = "v0.0.0";
           //var latestBuildId = release.id ? release.id:0;
-          var latestBuildId = release.tag_name ? release.tag_name : latestBuildId;       
+          var latestBuildId = release.tag_name ? release.tag_name : currentBuildId;       
           if (currentBuildId>=latestBuildId) {
             $("#githubupdatelabel").show();
             $("#githubupdatelabel").text("IoT for Electronics Starter (" + currentBuildId +")");
@@ -56,7 +69,7 @@
             $("#githubupdatelabel").css('font-size', '10pt');
             $("#githubupdatebutton").show();
             $("#githubupdatebutton").text("update instruction");
-            $("#githubupdatebutton").attr("href", release.html_url);  //this url should be changed to the instruction
+            $("#githubupdatebutton").attr("href", "https://console.bluemix.net/docs/starters/IoTElectronics-starter/iot4egettingstarted.html#creating-apps-with-the-iot-for-electronics-starter");  //this url should be changed to the instruction
           }
         });
       }
@@ -239,6 +252,8 @@
       var TIMEOUT_CREATE = "<%= __('main_page.timeout_create') %>";
     </script>
     <script src="/javascripts/index.js"></script>
+     
+  
   </body>
   </html>
   
