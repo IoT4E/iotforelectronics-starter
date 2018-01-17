@@ -3,10 +3,10 @@ applications:
   memory: 512M
   instances: 1
   domain: mybluemix.net
-  name: ck iote starter
-  host: ck-iote-starter
+  name: 
+  host: 
   disk_quota: 1024M
   services:
-  - ck iote starter-AppID
-  - ck iote starter-iotf-service
-  - ck iote starter-ibm-iot-for-electronics
+  - AppID
+  - iotf-service
+  - ibm-iot-for-electronics
